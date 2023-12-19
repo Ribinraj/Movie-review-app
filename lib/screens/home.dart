@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter_mdi_icons/flutter_mdi_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
@@ -22,30 +23,6 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final searchController = TextEditingController();
-  // int? userid;
-
-  // late Box wishlistBox;
-
-  // void addToWishlist(int movieIndex) async {
-  //   SharedPreferences sharedpref = await SharedPreferences.getInstance();
-  //   int userIndex = sharedpref.getInt('userIndex') ?? 0;
-  //   userid = userIndex;
-  //   List wishlistItems = wishlistBox.values.toList();
-
-  //   int existingIndex = wishlistItems.indexWhere(
-  //     (item) => item.userid == userIndex && item.movieid == movieIndex,
-  //   );
-
-  //   setState(() {
-  //     if (existingIndex != -1) {
-  //       wishlistBox.deleteAt(existingIndex);
-  //     } else {
-  //       Wishlist wishlistItem =
-  //           Wishlist(userid: userIndex, movieid: movieIndex);
-  //       wishlistBox.add(wishlistItem);
-  //     }
-  //   });
-  // }
 
   List filteredMovie = [];
   String selectedCategory = '';
@@ -60,7 +37,6 @@ class _homeScreenState extends State<homeScreen> {
     super.initState();
     GetDataHome.initializeDatabase();
     filteredMovie = List.from(GetDataHome.moviedataBox.values);
-    // wishlistBox = Hive.box('wishlist');
   }
 
   @override
@@ -72,7 +48,11 @@ class _homeScreenState extends State<homeScreen> {
         title: titlelogo(),
         actions: [
           IconButton(
-            icon: const Icon(Icons.menu),
+            icon: Icon(
+              Mdi.menu,
+              size: 27,
+              color: custombordercolor(),
+            ),
             onPressed: () {
               _scaffoldKey.currentState!.openEndDrawer();
             },
@@ -156,10 +136,6 @@ class _homeScreenState extends State<homeScreen> {
                                   selectedCategory = 'Action';
                                   filtering();
                                 });
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const actionScreen(),
-                                // ));
                               },
                               buttonText: 'Action'),
                           const SizedBox(
@@ -169,10 +145,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'Comedy';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const comedyScreen(),
-                                // ));
                               },
                               buttonText: 'Comedy'),
                           const SizedBox(
@@ -182,10 +154,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'Thriller';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const thrillerScreen(),
-                                // ));
                               },
                               buttonText: 'Thriller'),
                           const SizedBox(
@@ -195,10 +163,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'Drama';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const dramaScreen(),
-                                // ));
                               },
                               buttonText: 'Drama'),
                           const SizedBox(
@@ -208,10 +172,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'English';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const dramaScreen(),
-                                // ));
                               },
                               buttonText: 'English'),
                           const SizedBox(
@@ -221,10 +181,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'Tamil';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const dramaScreen(),
-                                // ));
                               },
                               buttonText: 'Tamil'),
                           const SizedBox(
@@ -234,10 +190,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'Malayalam';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const dramaScreen(),
-                                // ));
                               },
                               buttonText: 'Malayalam'),
                           const SizedBox(
@@ -247,10 +199,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'Telungu';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const dramaScreen(),
-                                // ));
                               },
                               buttonText: 'Telungu'),
                           const SizedBox(
@@ -260,10 +208,6 @@ class _homeScreenState extends State<homeScreen> {
                               onPressed: () {
                                 selectedCategory = 'Hindi';
                                 filtering();
-                                // Navigator.of(context)
-                                //     .pushReplacement(MaterialPageRoute(
-                                //   builder: (context) => const dramaScreen(),
-                                // ));
                               },
                               buttonText: 'Hindi'),
                         ],
@@ -279,7 +223,7 @@ class _homeScreenState extends State<homeScreen> {
         valueListenable: GetDataHome.movielistenable,
         builder: (context, value, child) => Container(
           padding: const EdgeInsets.all(10),
-          color: Colors.black,
+          color: const Color.fromARGB(255, 0, 0, 0),
           child: filteredMovie.isEmpty
               ? Center(
                   child: subtitle('No movies available', 20),
@@ -364,17 +308,6 @@ class _homeScreenState extends State<homeScreen> {
                                   FavoriteClass(
                                     index: index,
                                   )
-                                  // IconButton(
-                                  //   onPressed: () {
-                                  //     addToWishlist(index);
-                                  //   },
-                                  //   icon: Icon(wishlistBox.values.any((item) =>
-                                  //           item.userid == userid &&
-                                  //           item.movieid == index)
-                                  //       ? Icons.favorite
-                                  //       : Icons.favorite_outline_sharp),
-                                  //   color: Colors.red,
-                                  // )
                                 ],
                               ),
                             ],

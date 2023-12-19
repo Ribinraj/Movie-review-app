@@ -54,6 +54,18 @@ Widget subtitle(String text, double fontSize,
   );
 }
 
+//text
+Widget customtext(String text, double fontSize,
+    {Color textColor = const Color.fromARGB(255, 255, 255, 255)}) {
+  return Text(
+    text,
+    style: TextStyle(
+      color: textColor,
+      fontSize: fontSize,
+    ),
+  );
+}
+
 // textformfield
 Widget textFormFieldWidget(
     {required TextEditingController controller,
@@ -154,5 +166,17 @@ Color customblueColor() {
 Color custombordercolor() {
   return Color.fromARGB(255, 68, 255, 239);
 }
-//filtering
 
+//gradient
+BoxDecoration getGradientDecoration() {
+  return BoxDecoration(
+    gradient: LinearGradient(
+      colors: const [
+        Color.fromARGB(255, 2, 79, 86),
+        Color.fromARGB(255, 4, 4, 4),
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+  );
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mdi_icons/flutter_mdi_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:picture_pulse/Model/addMovie.dart';
 import 'package:picture_pulse/screens/commendSceen.dart';
@@ -94,7 +95,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   Row(
                     children: [
                       const Icon(
-                        Icons.punch_clock_rounded,
+                        Mdi.clockOutline,
                       ),
                       Text(
                         '${widget.movie.runtime} Hour',

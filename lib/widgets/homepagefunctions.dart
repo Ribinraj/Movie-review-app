@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mdi_icons/flutter_mdi_icons.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:picture_pulse/Model/wishlist.dart';
+import 'package:picture_pulse/screens/aboutus.dart';
 import 'package:picture_pulse/screens/login.dart';
+import 'package:picture_pulse/screens/privacy_policy.dart';
 import 'package:picture_pulse/screens/profile/profile.dart';
+import 'package:picture_pulse/screens/termsandcondition.dart';
 import 'package:picture_pulse/screens/wishlist.dart';
 import 'package:picture_pulse/widgets/functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,7 +106,7 @@ class _MyDrawerState extends State<MyDrawer> {
               decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 242, 241, 241),
                   borderRadius: BorderRadius.circular(100),
-                  border: Border.all(width: 2, color: custombordercolor())),
+                  border: Border.all(width: 2, color: Colors.black)),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: imageFile.existsSync()
@@ -126,7 +129,7 @@ class _MyDrawerState extends State<MyDrawer> {
           Container(
             decoration: BoxDecoration(
                 color: customblueColor(),
-                border: Border.all(width: 1, color: custombordercolor()),
+                border: Border.all(width: 1, color: Colors.black),
                 borderRadius: BorderRadius.circular(4)),
             height: 40,
             width: 250,
@@ -165,6 +168,60 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => WishlistScreen(),
+              ));
+            },
+          ),
+          ListTile(
+            title: Row(children: [
+              Icon(
+                Mdi.security,
+                size: 32,
+                color: Colors.black,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              subtitle('Privacy Policy', 20, textColor: Colors.black)
+            ]),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => privacypolicyscreen(),
+              ));
+            },
+          ),
+          ListTile(
+            title: Row(children: [
+              Icon(
+                Mdi.information,
+                size: 32,
+                color: Colors.black,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              subtitle('About Us', 20, textColor: Colors.black)
+            ]),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Aboutscreeen(),
+              ));
+            },
+          ),
+          ListTile(
+            title: Row(children: [
+              Icon(
+                Mdi.fileLock,
+                size: 32,
+                color: Colors.black,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              subtitle('Terms & Conditions', 20, textColor: Colors.black)
+            ]),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => TermsandConditionScreen(),
               ));
             },
           ),
@@ -209,7 +266,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             createCustomSnackBar(
                                 text: 'Logouted successfully',
-                                backgroundColor: Colors.red),
+                                backgroundColor: Colors.green),
                           );
                         },
                         child: const Text("yes"),

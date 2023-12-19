@@ -20,7 +20,7 @@ class profileScreen extends StatefulWidget {
 
 class _profileScreenState extends State<profileScreen> {
   late Box loginDatabox;
-  int? storedindex;
+  int? storedindex = 0;
   @override
   void initState() {
     super.initState();
@@ -185,7 +185,7 @@ class _profileScreenState extends State<profileScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               createCustomSnackBar(
                                   text: 'Logouted successfully',
-                                  backgroundColor: Colors.red),
+                                  backgroundColor: Colors.green),
                             );
                           },
                           child: const Text("yes"),

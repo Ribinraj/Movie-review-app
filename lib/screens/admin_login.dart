@@ -17,8 +17,9 @@ class AdminloginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        body: SingleChildScrollView(
+      body: DecoratedBox(
+        decoration: getGradientDecoration(),
+        child: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.only(
                 left: 40, right: 40, top: 120, bottom: 120),
@@ -125,8 +126,11 @@ class AdminloginScreen extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const loginScreen()));
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const loginScreen()),
+                                );
                               },
                               // ignore: prefer_const_constructors
                               child: Text(
@@ -146,6 +150,8 @@ class AdminloginScreen extends StatelessWidget {
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

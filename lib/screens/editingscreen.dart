@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, camel_case_types, non_constant_identifier_names
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:picture_pulse/Model/addMovie.dart';
 import 'package:picture_pulse/screens/admin_panel.dart';
+import 'package:picture_pulse/widgets/add_editmovie.dart';
+
 import 'package:picture_pulse/widgets/database_functions.dart';
 
 import 'package:picture_pulse/widgets/functions.dart';
@@ -32,7 +31,6 @@ class _addmoviescreenState extends State<editingScreen> {
   final TextEditingController _movienameController = TextEditingController();
   late TextEditingController _moviedirectorController;
   late TextEditingController _movielanguageController;
-
   late TextEditingController _runtimeController;
   late TextEditingController _descriptionController;
   late TextEditingController _castController;
@@ -130,28 +128,7 @@ class _addmoviescreenState extends State<editingScreen> {
               SizedBox(
                 height: 10,
               ),
-              GestureDetector(
-                  onTap: _pickImage,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 40, 228, 228),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: _image != null
-                        ? Image.file(
-                            File(_image!.path),
-                            fit: BoxFit.cover,
-                          )
-                        : const Center(
-                            child: Icon(
-                              Icons.camera_alt,
-                              size: 50.0,
-                              color: Colors.black,
-                            ),
-                          ),
-                  )),
+              customImagePicker(image: _image, onTap: _pickImage),
               Container(
                 padding: EdgeInsets.all(10),
                 child: Column(
@@ -254,47 +231,22 @@ class _addmoviescreenState extends State<editingScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             subtitle('Genre', 15),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * .45,
-                              child: Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  color: customblueColor(),
-                                  border: Border.all(
-                                      width: 2, color: custombordercolor()),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Center(
-                                  child: DropdownButton<String>(
-                                    value: selectedGenre,
-                                    icon: Icon(Icons.arrow_drop_down),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 9, 9, 9),
-                                        fontSize: 18.0),
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        selectedGenre = newValue.toString();
-                                      });
-                                    },
-                                    items: <String>[
-                                      'Others',
-                                      'Comedy',
-                                      'Drama',
-                                      'Thriller',
-                                      'Action'
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            )
+                            customDropdown(
+                              context: context,
+                              value: selectedGenre,
+                              items: [
+                                'Others',
+                                'Comedy',
+                                'Drama',
+                                'Thriller',
+                                'Action'
+                              ],
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedGenre = newValue.toString();
+                                });
+                              },
+                            ),
                           ],
                         )
                       ],
@@ -309,37 +261,14 @@ class _addmoviescreenState extends State<editingScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             subtitle('Rating', 15),
-                            Container(
-                              height: MediaQuery.of(context).size.height * .075,
-                              width: MediaQuery.of(context).size.width * .45,
-                              decoration: BoxDecoration(
-                                  color: customblueColor(),
-                                  border: Border.all(
-                                      width: 2, color: custombordercolor()),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Center(
-                                child: RatingBar(
-                                  itemSize: 25,
-                                  initialRating: _ratingValue,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  ratingWidget: RatingWidget(
-                                    full: const Icon(Icons.star,
-                                        color: Colors.amber),
-                                    half: const Icon(Icons.star_half,
-                                        color: Colors.amber),
-                                    empty: const Icon(Icons.star_border,
-                                        color: Colors.amber),
-                                  ),
-                                  itemPadding: const EdgeInsets.symmetric(
-                                      horizontal: 1.0),
-                                  onRatingUpdate: (rating) {
-                                    _ratingValue = rating;
-                                  },
-                                ),
-                              ),
-                            )
+                            CustomRatingBar(
+                              initialValue: _ratingValue,
+                              onRatingUpdate: (rating) {
+                                setState(() {
+                                  _ratingValue = rating;
+                                });
+                              },
+                            ),
                           ],
                         ),
                         Column(
