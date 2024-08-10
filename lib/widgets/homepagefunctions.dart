@@ -275,6 +275,14 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                 );
               }),
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.only(left: 120),
+            child: customtext(
+              'version 2.0',
+              10,
+            ),
+          )
         ],
       ),
     );

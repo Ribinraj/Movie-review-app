@@ -24,6 +24,8 @@ class editprofilescreen extends StatefulWidget {
 }
 
 class _editprofilescreenState extends State<editprofilescreen> {
+  final ValueNotifier<bool> _profileUpdatedNotifier =
+      ValueNotifier<bool>(false);
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -187,7 +189,7 @@ class _editprofilescreenState extends State<editprofilescreen> {
         backgroundColor: Colors.green,
       ),
     );
-
+    _profileUpdatedNotifier.value = true;
     Navigator.of(context).pop();
   }
 }
